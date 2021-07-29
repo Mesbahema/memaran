@@ -28,7 +28,7 @@ class SendMessageController extends Controller
         if ($request->route()->getName() == 'send1')
             return $this->send2($request);
 
-        return $this->fail();
+        throw new MessageNotSend();
     }
     /**
      * @param SendMessageRequest $request
