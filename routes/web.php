@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SendMessageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('number1', function () {
-    return 'kir';
-});
+Route::get('send1', [SendMessageController::class, 'send1'])->name('send1');
 
-Route::get('number2', function () {
-    return 'kos';
-});
+Route::get('send2', [SendMessageController::class, 'send2'])->name('send2');
