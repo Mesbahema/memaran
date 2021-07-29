@@ -44,7 +44,7 @@ class Handler extends ExceptionHandler
             if($request->expectsJson())
                 return response()->json(['message' => 'the route does not exist'], 404);
                 
-                return response()->view('errors.route-not-found', [], 404);
+            return response()->view('errors.route-not-found', [], 404);
         });
     }
 }
