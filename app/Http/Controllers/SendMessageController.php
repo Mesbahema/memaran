@@ -31,6 +31,11 @@ class SendMessageController extends Controller
 
         throw new MessageNotSend();
     }
+    public function report()
+    {
+        $messages = Message::paginate(5);
+        return view('report', compact('messages'));
+    }
     /**
      * @param SendMessageRequest $request
      * 

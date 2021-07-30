@@ -21,3 +21,6 @@ Route::get('/', function () {
 Route::get('send1', [SendMessageController::class, 'send1'])->name('send1');
 
 Route::get('send2', [SendMessageController::class, 'send2'])->name('send2');
+
+Route::get('report', [SendMessageController::class, 'report'])->name('report');
+
