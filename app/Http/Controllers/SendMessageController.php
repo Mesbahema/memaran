@@ -16,13 +16,14 @@ class SendMessageController extends Controller
      */
     public function send1(SendMessageRequest $request)
     {
-        $message = Message::firstOrCreate([
-            'number' => $request->number,
-            'body' => $request->body,
-        ]);
+        
+        $message = $this->createOrUpdate($request->number, $request->body, $request->id);
         
         if (!$this->notSent()){
-            return $this->success();
+            
+            $message->is_sent = true;
+            $message->save();
+            return $this->success($message->id);
         }
         //switch to other api
         if ($request->route()->getName() == 'send1')
@@ -37,14 +38,13 @@ class SendMessageController extends Controller
      */
     public function send2(SendMessageRequest $request)
     {
-
-        $message = Message::firstOrCreate([
-            'number' => $request->number,
-            'body' => $request->body,
-        ]);
+        $message = $this->createOrUpdate($request->number, $request->body, $request->id);
 
         if (!$this->notSent()){
-            return $this->success();
+            
+            $message->is_sent = true;
+            $message->save();
+            return $this->success($message->id);
         }
 
         //switch to other api
@@ -62,13 +62,27 @@ class SendMessageController extends Controller
         return rand(0, 2);
     }
 
-    public function success()
+    public function success($id)
     {
-        return response()->json(['message' => 'the message has been sent']);
+        return response()->json([
+            'message' => 'the message has been sent',
+            'id' => $id]);
     }
 
-    public function fail()
+    protected function createOrUpdate(string $number, string $body, $id = null)
     {
-        return response()->json(['message' => 'the message has not been sent'], 500);
+        if(!$id) {
+            return Message::Create([
+                'number' => $number,
+                'body' => $body,
+            ]);
+        }
+
+        $message = Message::find($id);
+        $message->update([
+            'number' => $number,
+            'body' => $body,
+        ]);
+        return $message;
     }
 }

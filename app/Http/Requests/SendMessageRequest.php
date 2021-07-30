@@ -24,6 +24,7 @@ class SendMessageRequest extends FormRequest
     public function rules()
     {
         return [
+            'id' => 'exists:messages,id',
             'number' => 'bail|required|size:11',
             'body' => 'required',
         ];

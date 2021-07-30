@@ -8,6 +8,6 @@ class MessageNotSend extends Exception
 {
     public function render()
     {
-        return response()->json(['message' => 'the message has not been sent'], 404);
+        return response()->json(['message' => 'the message has not been sent'], 500);
     }
 }
