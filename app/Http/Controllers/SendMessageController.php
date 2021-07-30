@@ -33,7 +33,7 @@ class SendMessageController extends Controller
     }
     public function report()
     {
-        $messages = Message::paginate(5);
+        $messages = Message::all();
         return view('report', compact('messages'));
     }
     /**
